@@ -1,6 +1,11 @@
+import express from "express";
 import 'dotenv/config'; 
 import { Telegraf, Markup } from 'telegraf';
 import mongoose from 'mongoose';
+
+const app=express();
+
+
 
 // Ensure variables exist in system memory before initiating
 if (!process.env.BOT_TOKEN || !process.env.MONGO_URI) {
@@ -219,3 +224,8 @@ bot.launch().then(() => console.log('🤖 Telegram Attendance Bot running on ES 
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
+const PORT = process.env.PORT || 10000
+app.get("/",(ctx) => ctx.send("Bot status:ONLINE"))
+app.listen(PORT,"0.0.0.0",() =>{
+  console.log(`Mock web port listener successfully bound to port ${PORT}`)
+})
